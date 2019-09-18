@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { ChatBox, mapStateToProps, mapDispatchToProps } from './ChatBox';
-import { hasErrored } from '../../actions';
+import { hasErrored , addMessage } from '../../actions';
 import { postMessage } from '../../apiCalls';
 
 jest.mock('../../apiCalls');
@@ -149,6 +149,17 @@ describe('mapDispatchToProps', () => {
 
     const mappedProps = mapDispatchToProps(mockDispatch);
     mappedProps.hasErrored('fetch failed');
+
+    expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
+  });
+
+  it('should call dispatch with an addMessage action when addMessage is called', () => {
+
+    let mockDispatch = jest.fn();
+    let actionToDispatch = addMessage('Sleep more.', false);
+
+    let mappedProps = mapDispatchToProps(mockDispatch);
+    mappedProps.addMessage('Sleep more.', false);
 
     expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
   });
