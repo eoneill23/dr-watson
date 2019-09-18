@@ -39,7 +39,7 @@ export class WelcomeModal extends Component {
   validateInputs = () => {
     let { firstName, lastName, feeling } = this.state;
     let result = firstName && lastName && feeling ? true : false;
-    return result;
+    return result
   }
 
   connectToChatBot = async () => {
