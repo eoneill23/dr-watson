@@ -17,3 +17,7 @@ export const addMessage = (message, isUser) => ({
   message,
   isUser
 });
+
+export const clearMessages = () => ({
+  type: 'ClEAR_MESSAGES',
+});
