@@ -23,13 +23,23 @@ export class WelcomeModal extends Component {
   handleSubmit = e => {
     const { firstName, lastName, feeling } = this.state;
     e.preventDefault();
-    this.props.createUser({
-      id: Date.now(),
-      firstName,
-      lastName,
-      feeling,
-    });
-    this.connectToChatBot();
+    if(this.validateInputs()) {
+      this.props.createUser({
+        id: Date.now(),
+        firstName,
+        lastName,
+        feeling,
+      });
+      this.connectToChatBot();
+    } else {
+      this.setState({error: 'Please make sure you have filled everything out.'})
+    }
+  }
+
+  validateInputs = () => {
+    let { firstName, lastName, feeling } = this.state;
+    let result = firstName && lastName && feeling ? true : false;
+    return result
   }
 
   connectToChatBot = async () => {

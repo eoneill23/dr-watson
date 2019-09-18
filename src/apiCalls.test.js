@@ -91,3 +91,64 @@ describe('endConversation', () => {
     expect(endConversation()).rejects.toEqual(Error('fetch failed.'));
   });
 });
+
+describe('postMessage', () => {
+  let mockResponse, mockMessage;
+
+  beforeEach(() => {
+    mockResponse = {
+      message: 'I appreciate the feedback...'
+    }
+    mockMessage = 'I appreciate the feedback...'
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockResponse)
+      });
+    });
+  });
+
+  it('should call fetch with the correct Url', () => {
+
+    const url = 'https://drwatson-api.herokuapp.com/api/message'
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ newMessage: mockMessage })
+    };
+
+    postMessage(mockMessage);
+
+    expect(window.fetch).toHaveBeenCalledWith(url, options)
+  });
+
+  it('should return the message (HAPPY) :)', () => {
+
+    postMessage(mockMessage)
+    .then(results => expect(results).toEqual(mockResponse))
+  });
+
+  it('should throw an error if the promise ok = false (SAD) :(', () => {
+
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false
+      });
+    });
+
+    expect(postMessage(mockMessage)).rejects.toEqual(Error('There was an error sending your message'))
+  });
+
+  it('should throw an error if the promise rejects (SAD) :(', () => {
+
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.reject({
+        message: 'There was an error sending your message'
+      });
+    });
+
+    expect(postMessage(mockMessage)).rejects.toEqual({ message: 'There was an error sending your message' })
+  });
+});
