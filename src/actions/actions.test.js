@@ -1,4 +1,4 @@
-import { createUser, removeUser, hasErrored } from './index';
+import { createUser, removeUser, hasErrored, addMessage, clearMessages } from './index';
 
 describe('actions', () => {
 
@@ -38,5 +38,28 @@ describe('actions', () => {
     }
 
     expect(hasErrored(errorMsg)).toEqual(expectedAction);
+  });
+
+  it('should have a type of ADD_MESSAGE', () => {
+
+    let mockMessage = 'Sleep more.';
+    let mockIsUser = false;
+
+    let expectedAction = {
+      type: 'ADD_MESSAGE',
+      message: mockMessage,
+      isUser: mockIsUser
+    }
+
+    expect(addMessage(mockMessage, mockIsUser)).toEqual(expectedAction);
+  });
+
+  it('should have a type of CLEAR_MESSAGES', () => {
+
+    let expectedAction = {
+      type: 'CLEAR_MESSAGES',
+    }
+
+    expect(clearMessages()).toEqual(expectedAction);
   });
 });
