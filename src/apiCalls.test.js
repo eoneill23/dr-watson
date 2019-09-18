@@ -130,7 +130,7 @@ describe('postMessage', () => {
     .then(results => expect(results).toEqual(mockResponse))
   });
 
-  it('should throw an error if the promise ok = false (SAD) :(', () => {
+  it('should throw an error if the promise.ok = false (SAD) :(', () => {
 
     window.fetch = jest.fn().mockImplementation(() => {
       return Promise.resolve({
