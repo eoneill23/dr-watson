@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { WelcomeModal, mapDispatchToProps } from './WelcomeModal';
-import { createUser, hasErrored } from '../../actions';
+import { createUser, hasErrored, addMessage } from '../../actions';
 import { startConversation } from '../../apiCalls';
 
 jest.mock('../../apiCalls');
@@ -164,6 +164,17 @@ describe('mapDispatchToProps', () => {
 
     const mappedProps = mapDispatchToProps(mockDispatch);
     mappedProps.hasErrored('fetch failed');
+
+    expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
+  });
+
+  it('should call disaptch with an addMessage action when addMessage is called', () => {
+
+    let mockDispatch = jest.fn();
+    let actionToDispatch = addMessage('Eat healthier.', false);
+
+    let mappedProps = mapDispatchToProps(mockDispatch);
+    mappedProps.addMessage('Eat healthier.', false);
 
     expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
   });
