@@ -34,7 +34,6 @@ export const postMessage = async newMessage => {
   }
 
   const data = await response.json();
-  console.log(data)
   return data;
 }
 
