@@ -77,7 +77,8 @@ describe('mapStateToProps', () => {
       errorMsg: ''
     };
     const expected = {
-      user: mockUser
+      user: mockUser,
+      messages: mockState.messages
     }
 
     const mappedProps = mapStateToProps(mockState);
