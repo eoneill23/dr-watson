@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { hasErrored } from '../../actions';
+import { hasErrored, addMessage } from '../../actions';
 import { postMessage } from '../../apiCalls';
 import Message from '../../components/Message/Message'
 
@@ -34,13 +34,14 @@ export class ChatBox extends Component {
   messageChatBot = async () => {
     try {
       const messageResponse = await postMessage(this.state.message);
-      this.props.addMessage(messageResponse.message, false);
+      this.props.addMessage(messageResponse.message);
     } catch({ message }) {
       this.props.hasErrored(message)  
     }
   }
 
   render() {
+    console.log("PROPS IN CHATBOX", this.props)
     const { message } = this.state;
     const { messages, errorMsg } = this.props;
     const survey = messages.map((message, i) => {
@@ -74,6 +75,6 @@ export const mapStateToProps = ({ errorMsg }) => ({
   errorMsg
 })
 
-export const mapDispatchToProps = dispatch => bindActionCreators({ hasErrored }, dispatch);
+export const mapDispatchToProps = dispatch => bindActionCreators({ hasErrored, addMessage }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatBox);

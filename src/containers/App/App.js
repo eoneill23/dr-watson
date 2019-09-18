@@ -16,10 +16,10 @@ export class App extends Component {
     }
   }
 
-  addMessage = (message, isUser) => {
-    const { messages } = this.state;
-    this.setState({ messages: [...messages, { message, isUser }]});
-  }
+  // addMessage = (message, isUser) => {
+  //   const { messages } = this.state;
+  //   this.setState({ messages: [...messages, { message, isUser }]});
+  // }
 
   clearMessages = () => {
     this.setState({ messages: [] });
@@ -48,8 +48,9 @@ export class App extends Component {
   }
 }
 
-export const mapStateToProps = ({ user }) => ({
+export const mapStateToProps = ({ user, messages }) => ({
   user,
+  messages
 });
 
 export const mapDispatchToProps = dispatch =>  bindActionCreators({ removeUser, hasErrored }, dispatch);
