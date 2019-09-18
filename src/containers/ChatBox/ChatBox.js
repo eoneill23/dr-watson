@@ -41,7 +41,6 @@ export class ChatBox extends Component {
   }
 
   render() {
-    console.log("PROPS IN CHATBOX", this.props)
     const { message } = this.state;
     const { messages, errorMsg } = this.props;
     const survey = messages.map((message, i) => {

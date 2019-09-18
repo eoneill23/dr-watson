@@ -13,6 +13,6 @@ export const Header = ({ user, signOut }) => {
 
 export const mapStateToProps = ({ user }) => ({
   user
-})
+});
 
 export default connect(mapStateToProps)(Header);
