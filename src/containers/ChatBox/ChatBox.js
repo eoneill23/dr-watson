@@ -71,8 +71,9 @@ export class ChatBox extends Component {
   }
 }
 
-export const mapStateToProps = ({ errorMsg }) => ({
-  errorMsg
+export const mapStateToProps = ({ errorMsg, messages }) => ({
+  errorMsg,
+  messages
 })
 
 export const mapDispatchToProps = dispatch => bindActionCreators({ hasErrored, addMessage }, dispatch);
